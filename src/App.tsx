@@ -1,9 +1,11 @@
+import { useState } from 'react';
+
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import { createServer, Model } from 'miragejs';
 import { GlobalStyle } from './styles/global';
-import { useState } from 'react';
 import { NewTransactionsModal } from './components/NewTransactionModal'
+import { TransactionsProvider } from './hooks/useTransactions';
 
 createServer({
   models: {
@@ -60,7 +62,7 @@ export function App() {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransanctionModal}/>
 
       <Dashboard />
@@ -68,6 +70,6 @@ export function App() {
       <NewTransactionsModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransationModal} />
 
       <GlobalStyle />
-    </>
+    </TransactionsProvider>
   );
 }
